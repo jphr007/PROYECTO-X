@@ -1,15 +1,13 @@
-# PROYECTO-X
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Reel } from '@/components/reel'
 
-const SYMBOLS = ['cherry', 'lemon', 'orange', 'grape', 'bell', 'seven']
+const SYMBOLS = ['🍒', '🍋', '🍊', '🍇', '🔔', '💎']
 
 export default function SlotMachine() {
-  const [reels, setReels] = useState(['cherry', 'cherry', 'cherry'])
+  const [reels, setReels] = useState(['🍒', '🍒', '🍒'])
   const [balance, setBalance] = useState(100)
   const [message, setMessage] = useState('')
   const [isSpinning, setIsSpinning] = useState(false)
@@ -23,22 +21,12 @@ export default function SlotMachine() {
     setIsSpinning(true)
     setBalance(balance - 10)
 
-    const spinDuration = 2000 // 2 seconds
-    const spinInterval = 100 // Update every 100ms
-
-    let spinsLeft = spinDuration / spinInterval
-    const spinTimer = setInterval(() => {
-      setReels(reels.map(() => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]))
-      spinsLeft--
-
-      if (spinsLeft <= 0) {
-        clearInterval(spinTimer)
-        const finalReels = SYMBOLS.map(() => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)])
-        setReels(finalReels)
-        checkWin(finalReels)
-        setIsSpinning(false)
-      }
-    }, spinInterval)
+    setTimeout(() => {
+      const newReels = reels.map(() => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)])
+      setReels(newReels)
+      checkWin(newReels)
+      setIsSpinning(false)
+    }, 1000)
   }
 
   const checkWin = (newReels: string[]) => {
@@ -64,7 +52,9 @@ export default function SlotMachine() {
         <CardContent>
           <div className="flex justify-center gap-2 mb-4">
             {reels.map((symbol, index) => (
-              <Reel key={index} symbol={symbol} />
+              <div key={index} className="w-24 h-24 border-4 border-yellow-500 rounded-lg flex items-center justify-center bg-white text-4xl">
+                {symbol}
+              </div>
             ))}
           </div>
           <div className="text-center mb-4 text-xl font-semibold">Saldo: {balance} créditos</div>
