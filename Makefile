@@ -7,10 +7,10 @@ EXECUTABLE = slot_machine
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $@
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
